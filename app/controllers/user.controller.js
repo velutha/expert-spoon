@@ -16,7 +16,4 @@ const get = (req, res, next) => {
 };
 
 
-module.exports = {
-  getChannels: getChannels,
-  updateTokens: updateTokens
-};
+module.exports = { get };
