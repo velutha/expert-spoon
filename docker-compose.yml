@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  survey_app:
+    build: ./app
+    image: suvery_app/api:latest
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    command: node bin/www
