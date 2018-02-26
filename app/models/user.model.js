@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({},
+const UserSchema = new mongoose.Schema({
+  name:{
+    type: String,
+    required: true
+  }
+},
   {
     minimize: false,
     versionKey: false
