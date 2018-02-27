@@ -103,9 +103,10 @@ const uploadFile = (req, res) => {
             Question.create(questions,(err,questionArray) => {
                 if (err) throw err;
                 //console.log(Q);
+                res.send('Questions uploaded');
             });
 
-            res.send('Questions uploaded');
+            
         }).catch(err => {if(err) {throw err} })
 
     }
@@ -177,6 +178,7 @@ const uploadAnswer = (req,res) => {
                 //let userId = q.userId;
                 const enterpriseId = question.enterpriseId;
                 const type = question.type;
+                const section = question.section;
                 const title = question.title;
                 const options = question.options;
                 const ratings = question.ratings;
@@ -190,6 +192,7 @@ const uploadAnswer = (req,res) => {
                                 revieweeId,
                                 enterpriseId,
                                 type,
+                                section,
                                 title,
                                 text
                             }
@@ -201,6 +204,7 @@ const uploadAnswer = (req,res) => {
                                 revieweeId,
                                 enterpriseId,
                                 type,
+                                section,
                                 title,
                                 options,
                                 choice
@@ -213,6 +217,7 @@ const uploadAnswer = (req,res) => {
                                 revieweeId,
                                 enterpriseId,
                                 type,
+                                section,
                                 title,
                                 ratings
                             }

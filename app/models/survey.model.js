@@ -19,42 +19,87 @@ var rating = new Schema({
 });
 
 var questionSchema = new Schema({
-    enterpriseId: String,
-    section: String,
-    type: String,
-    title: String,
+    enterpriseId: {
+        type:String,
+        default: ''
+    },
+    section: {
+        type:String,
+        default: ''
+    },
+    type: {
+        type:String,
+        enum: ['Text','Choice','Rating'],
+        default: ''
+    },
+    title: {
+        type:String,
+        default: ''
+    },
     options: {
-        type: [option],
-        default: [{option: 'Not this type of question'}]
+        type: [{
+            option: String,
+            _id: false
+        }],
+        default: [{option: ''}]
     },
     ratings: {
-        type: [field],
-        default: [{field: 'Not this type of question'}]
+        type: [{
+            field: String,
+            _id: false
+        }],
+        default: [{field: ''}]
     }
 });
 
 
 var answerSchema = new Schema({
-    revieweeId: String,
-    enterpriseId: String,
-    section: String,
-    type: String,
-    title: String,
+    revieweeId: {
+        type:String,
+        default: ''
+    },
+    enterpriseId: {
+        type:String,
+        default: ''
+    },
+    section: {
+        type:String,
+        default: ''
+    },
+    type: {
+        type:String,
+        enum: ['Text','Choice','Rating'],
+        default: ''
+    },
+    title: {
+        type:String,
+        default: ''
+    },
     text: {
         type: String,
-        default: 'Not a text question'
+        default: ''
         },
     options: {
-        type: [option],
-        default: [{option: 'Not this type of question'}]
+        type: [{
+            option: String,
+            _id: false
+        }],
+        default: [{option: ''}]
     },
     choice: {
         type: String,
-        default: 'Not a text question'
+        default: ''
         },
     ratings: {
-        type: [field],
-        default: [{field: 'Not this type of question'}]
+        type: [{
+            field: String,
+            rating: String,
+            _id: false
+        }],
+        default: [{
+            field: '',
+            rating: ''
+        }]
     }
 });
 
