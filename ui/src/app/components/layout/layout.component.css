@@ -1,0 +1,25 @@
+#closeNavIcon{
+    float:right;
+  }
+
+  /* #sideNav{
+    color: #8C7272;
+  } */
+
+  #navHeader{
+    height: 40px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+  }
+  #navHeader #projectName{
+    margin: 10px 10px 10px 5px;
+    display: inline-block;
+    font-size: 20px;
+  }
+.navLinks{
+  font-size: 14px;
+}
+
+.active{
+  background: #F5F5F5;
+}

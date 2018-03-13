@@ -1,0 +1,99 @@
+<div id="loginContainer" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-tab-group class="demo-tab-group">
+    <mat-tab label="Sign In">
+  
+      <form  id="loginForm" #loginForm="ngForm" (ngSubmit)="formSubmit(loginForm)">
+          <mat-form-field class="full-width" >
+            <input 
+              [(ngModel)]="model.email" 
+              #login_email="ngModel" 
+              required 
+              name="login_email" 
+              type="email" 
+              matInput  
+              id="login_email"
+              placeholder="Email"
+              class="formInputs">
+            
+          </mat-form-field>
+          <div id="loginEmailErrors" *ngIf="login_email.touched && !login_email.valid">
+            <span *ngIf="login_email['errors']['required']"  class="alert">
+                Email is required
+            </span>
+          </div>
+          
+
+          <mat-form-field class="full-width">
+            <input  
+              [(ngModel)]="model.password" 
+              #login_password="ngModel"
+              required 
+              name="password" 
+              type="password" 
+              matInput       
+              id="login_password"
+              placeholder="Password"
+              class="formInputs">
+          </mat-form-field>
+          <div id="loginPasswordErrors" *ngIf="login_password.touched && !login_password.valid">
+            <span *ngIf="login_password['errors']['required']"  class="alert">
+                Password is required
+            </span>
+          </div>
+          <span class="alert">{{invalidLogin}}</span> <br>
+          <button type="submit"
+            [disabled]="!loginForm.valid" mat-raised-button color='primary'>Sign In</button>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="Sign Up">
+      <form  id="signUpForm" #signupForm="ngForm" (ngSubmit)="formSubmit(signupForm)">
+          <mat-form-field class="full-width" >
+            <input 
+              [(ngModel)]="model.email" 
+              #signup_email="ngModel" 
+              required 
+              name="signup_email" 
+              type="email" 
+              matInput  
+              id="signup_email"
+              placeholder="Email"
+              class="formInputs">
+            
+          </mat-form-field>
+          <div id="signupEmailErrors" *ngIf="signup_email.touched && !signup_email.valid">
+            <span *ngIf="signup_email['errors']['required']"  class="alert">
+                Email is required
+            </span>
+          </div>
+          
+
+          <mat-form-field class="full-width">
+            <input  
+              [(ngModel)]="model.password" 
+              #signup_password="ngModel"
+              required 
+              name="signup_password" 
+              type="password" 
+              matInput       
+              id="signupPassword"
+              placeholder="Password"
+              class="formInputs">
+          </mat-form-field>
+          <div id="signupPasswordErrors" *ngIf="signup_password.touched && !signup_password.valid">
+            <span *ngIf="signup_password['errors']['required']"  class="alert">
+                Password is required
+            </span>
+          </div>
+          <!-- <span class="alert">{{invalidSignup}}</span> <br> -->
+          <button type="submit"
+            [disabled]="!signupForm.valid" mat-raised-button color='primary'>Sign Up</button>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+
+<mat-spinner *ngIf="showSpinner"></mat-spinner>

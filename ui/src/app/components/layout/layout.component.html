@@ -1,0 +1,75 @@
+
+<!--*ngIf="auth.isLoggedIn()"-->
+<mat-sidenav-container layout="row" fullscreen>
+    <div 
+      class="container" id="header"
+      fxLayout
+      fxLayoutAlign="center"
+      fxLayoutGap="10px"
+      fxLayoutGap.xs="0">
+    
+      <mat-toolbar role="header" color="primary">
+
+        <div class="text-left" fxFlex="15%">
+          <button mat-icon-button (click)="menu.open()">
+            <mat-icon >menu</mat-icon>
+          </button>   
+        </div>
+
+        <div  fxFlex="70%"  >
+          <span id="place" >{{projectName}}</span>
+        </div>
+
+        <div fxFlex="15%">
+          <div *ngIf="auth.isLoggedIn()" else notLoggedIn>
+              <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                  <mat-icon >person</mat-icon>
+                </button>
+          </div>
+          <ng-template #notLoggedIn>
+            <div>
+                <span>Login</span>
+            </div>
+          </ng-template>  
+        </div>
+        
+      </mat-toolbar>   
+    </div>
+
+    <div>
+      <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+        <button mat-menu-item (click)="logoutUser()" >
+          <span>Logout</span>
+        </button>         
+      </mat-menu>  
+    </div>
+
+    
+  
+    <router-outlet></router-outlet>
+    <!-- <login></login> -->
+    <!-- Routed views go here -->
+
+
+    <mat-sidenav id="sideNav" color="primary" #menu>
+      <mat-nav-list >
+        <!-- <div id="navHeader">
+            <span id="projectName">{{projectName}}</span>
+            <button mat-icon-button id="closeNavIcon" (click)="menu.close()">
+                <mat-icon >close</mat-icon>
+            </button>
+        </div> -->
+          
+          <a mat-list-item 
+            routerLink="/dashboard"
+            routerLinkActive="active" 
+            class="navLinks" (click)="menu.close()"> Dashboard </a>
+          <a mat-list-item routerLink="aquapro/geoSpatial" 
+            routerLinkActive="active" class="navLinks" 
+            (click)="menu.close()" > Questions </a>
+
+      </mat-nav-list>
+      <hr>
+    </mat-sidenav>
+  </mat-sidenav-container>
+  
