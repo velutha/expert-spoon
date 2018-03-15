@@ -1,24 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var option = new Schema({
-    option: String,
-    _id: false
-});
-
-var field = new Schema({
-    field: String,
-    _id: false
-});
-
-var rating = new Schema({
-    field: String,
-    rating: Number,
-    _id: false
-});
-
-var questionSchema = new Schema({
+const questionSchema = new Schema({
     enterpriseId: {
         type:String,
         default: ''
@@ -53,7 +37,7 @@ var questionSchema = new Schema({
 });
 
 
-var answerSchema = new Schema({
+const answerSchema = new Schema({
     revieweeId: {
         type:String,
         default: ''
@@ -106,7 +90,7 @@ var answerSchema = new Schema({
 questionSchema.set('timestamps',true);
 answerSchema.set('timestamps',true);
 
-var questionModel = mongoose.model('question',questionSchema);
-var answerModel = mongoose.model('answer',answerSchema);
+const questionModel = mongoose.model('question',questionSchema);
+const answerModel = mongoose.model('answer',answerSchema);
 
 module.exports = {questionModel,answerModel};

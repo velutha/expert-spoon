@@ -5,8 +5,11 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
+const cors = require('cors');
+const passport = require("passport");
 
 const routes = require('./routes');
+const strategy = require('./config/passport').strategy;
 
 const app = express();
 const dbConfig = require('./config/config').dbConfig;
@@ -17,6 +20,13 @@ const dbConfig = require('./config/config').dbConfig;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+//cors headers
+app.use(cors());
+
+passport.use(strategy());
+app.use(passport.initialize());
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

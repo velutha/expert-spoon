@@ -1,0 +1,25 @@
+.full-width{
+    width: 100%;
+}
+
+#loginContainer{
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.alert{
+    color: red;
+}
+
+#loginForm, #signUpForm{
+    width: 350px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.formInputs{
+    margin-top: 15px;
+}

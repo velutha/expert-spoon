@@ -103,7 +103,7 @@ const uploadFile = (req, res) => {
             Question.create(questions,(err,questionArray) => {
                 if (err) throw err;
                 //console.log(Q);
-                res.send('Questions uploaded');
+                res.status(201).json({message:'Questions uploaded'});
             });
 
             
@@ -169,7 +169,7 @@ const getQuestions = (req,res) => {
 
 const uploadAnswer = (req,res) => {
     const questionId = req.body.questionId;
-    const revieweeId = req.body.userId;
+    const revieweeId = req.body.revieweeId;
     
             Question.findById(questionId,(err,question) => {
     
@@ -226,10 +226,20 @@ const uploadAnswer = (req,res) => {
     
                 Answer.create(answer,(err,ans) => {
                     if(err) {throw err};
-                    res.send('Answer uploaded');
-                    console.log(ans);
+                    res.json({status:'Answer uploaded'});
+                    //console.log(ans);
                 })
             })
 }
 
-module.exports = { uploadFile, getQuestions, uploadAnswer };
+const getAnswers = (req,res) =>{
+    const revieweeId = req.params.revieweeId;
+    if(revieweeId){
+        Answer.find({revieweeId},(err,answers) =>{
+            if(err) throw err;
+            res.send(answers);
+        })
+    }
+}
+
+module.exports = { uploadFile, getQuestions, uploadAnswer, getAnswers};
