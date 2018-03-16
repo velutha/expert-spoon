@@ -18,7 +18,7 @@ export class AnswerService {
         console.log('answer submitted');
       });
     })
-    console.log(answers);
+    //console.log(answers);
     
 
 }

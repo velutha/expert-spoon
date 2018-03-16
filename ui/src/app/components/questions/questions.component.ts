@@ -20,13 +20,14 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit (){
     this.questionService.getQuestions().subscribe(response =>{
-      console.log(Object.keys(response.body).length);
+      //console.log(Object.keys(response.body).length);
       if(response.status === 200 && Object.keys(response.body).length !== 0) {
         for(let section in response.body) {
           this.sections.push(section);
           this.questions.push(response.body[section]);
           this.answers[section] = [];
         }
+        console.log(this.questions);
       } else {
         this.errorMessage = 'Oops..Something went wrong!'
       }
@@ -72,7 +73,7 @@ export class QuestionsComponent implements OnInit {
     //check to see if the question is already answered
     let questionIndex = this.isAnswered(question.questionId,section);
     if(questionIndex>-1){
-      this.answers[questionIndex].choice = choice;
+      this.answers[section][questionIndex].choice = choice;
     } else if(questionIndex===-1) {
       this.answers[section].push({
         questionId: question.questionId,
@@ -80,11 +81,18 @@ export class QuestionsComponent implements OnInit {
         //revieweeId and reviewerId to be attached to the answer
       })
     }
-    console.log(this.answers);
+    //console.log(this.answers);
   }
 
   onSubmit(section){
-      this.sendAnswers(this.answers[section]);
+      let sectionIndex = this.sections.indexOf(section);
+      let questionCount = this.questions[sectionIndex].length;
+      if(this.answers[section].length === questionCount) {
+        this.sendAnswers(this.answers[section]);
+      } else {
+        window.alert('Please answer all the questions before submitting');
+      } 
+      
   }
   
 

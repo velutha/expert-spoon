@@ -46,6 +46,11 @@ const answerSchema = new Schema({
         type:String,
         default: ''
     },
+    /*questionId: {
+        type:String,
+        required:true,
+        unique:true
+    },*/
     section: {
         type:String,
         default: ''
