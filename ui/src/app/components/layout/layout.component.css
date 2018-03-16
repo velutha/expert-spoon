@@ -24,3 +24,13 @@
 .active{
   background: #F5F5F5;
 }
+
+.login-chip{
+  color: #3f51b5;
+  font-weight: bold;
+  margin: 10px
+}
+
+.home-link{
+  cursor: pointer;
+}

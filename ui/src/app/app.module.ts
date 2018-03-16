@@ -35,8 +35,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
-
-
 // components
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -48,6 +46,7 @@ import { HomeComponent } from './components/home/home.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login',component: LoginComponent, pathMatch: 'full'  },
+  { path: 'home',component: HomeComponent, pathMatch: 'full'  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard]}
 ];

@@ -16,19 +16,39 @@
           </button>   
         </div>
 
-        <div  fxFlex="70%"  >
-          <span id="place" >{{projectName}}</span>
+        <div  
+        fxFlex="70%" 
+        
+        >
+          <span id="place" routerLink="/home" class="home-link">{{projectName}}</span>
         </div>
 
         <div fxFlex="15%">
-          <div *ngIf="auth.isLoggedIn()" else notLoggedIn>
+          <div *ngIf="auth.isLoggedIn() else notLoggedIn">
               <button mat-icon-button [matMenuTriggerFor]="userMenu">
                   <mat-icon >person</mat-icon>
               </button>
           </div>
           <ng-template #notLoggedIn>
-            <div>
-                <span>Login</span>
+            <div>                                                              
+                <a
+                  mat-raised-button
+                  class="login-chip"
+                  routerLink="/login"
+                  routerLinkActive="disabled"
+                  >
+                  Login
+                </a>
+                
+                <a
+                   mat-raised-button
+                   class="login-chip"
+                   routerLink="/login"
+                   routerLinkActive="disabled"
+                   >
+                    Signup
+                </a>   
+                
             </div>
           </ng-template>  
         </div>
@@ -51,8 +71,8 @@
 
     <mat-sidenav id="sideNav" color="primary" #menu>
       <mat-nav-list >
-        <div id="navHeader">
-            <span id="projectName">{{projectName}}</span>
+        <div id="navHeader" routerLink="/home" class="home-link">
+            <span id="projectName" >{{projectName}}</span>
            <!-- <button mat-icon-button id="closeNavIcon" (click)="menu.close()">
                 <mat-icon >close</mat-icon>
             </button> -->
@@ -61,7 +81,8 @@
           <a mat-list-item 
             routerLink="/dashboard"
             routerLinkActive="active" 
-            class="navLinks" (click)="menu.close()"> Dashboard </a>
+            class="navLinks" 
+            (click)="menu.close()"> Dashboard </a>
           <a mat-list-item routerLink="aquapro/geoSpatial" 
             routerLinkActive="active" 
             routerLink="/questions"

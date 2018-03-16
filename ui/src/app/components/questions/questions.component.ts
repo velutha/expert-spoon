@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionService } from '../services/question.service';
-import { AnswerService } from '../services/answer.service';
+import { QuestionService } from '../../services/question.service';
+import { AnswerService } from '../../services/answer.service';
 
 @Component({
   selector: 'questions',
