@@ -42,8 +42,8 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { HomeComponent } from './home/home.component';
+import { QuestionsComponent } from './components/questions/questions.component';
+import { HomeComponent } from './components/home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
