@@ -14,7 +14,7 @@ export class AnswerService {
         choice: answer.choice,
       }
       
-      this.http.post('http://localhost:3000/api/answer',httpOptions).subscribe(response =>{
+      this.http.post('/api/answer',httpOptions).subscribe(response =>{
         console.log('answer submitted');
       });
     })

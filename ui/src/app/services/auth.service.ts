@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login = (credentials?) => {
-    const url = "http://localhost:3000/api/login";
+    const url = "/api/login";
     
     return this.http.post(url, credentials)
        .map(
