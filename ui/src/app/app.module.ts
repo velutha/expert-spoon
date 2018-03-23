@@ -44,6 +44,7 @@ import { QuestionsComponent } from "./components/questions/questions.component";
 import { HomeComponent } from "./components/home/home.component";
 import { SignupComponent } from "./components/signup/signup.component";
 import { FooterComponent } from "./components/footer/footer.component";
+import { AnswersComponent } from "./components/answers/answers.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -55,7 +56,12 @@ const appRoutes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  { path: "questions", component: QuestionsComponent, canActivate: [AuthGuard] }
+  {
+    path: "questions",
+    component: QuestionsComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: "answers", component: AnswersComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -67,7 +73,8 @@ const appRoutes: Routes = [
     QuestionsComponent,
     HomeComponent,
     SignupComponent,
-    FooterComponent
+    FooterComponent,
+    AnswersComponent
   ],
   imports: [
     BrowserModule,
