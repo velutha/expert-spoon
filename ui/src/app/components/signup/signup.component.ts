@@ -16,8 +16,9 @@ export class SignupComponent implements OnInit {
     email: "",
     username: "",
     password: "",
-    role: "admin"
+    role: ""
   };
+  roles = ["Director", "Manager", "Employee"];
   signupError;
   signupSuccess = false;
   showSpinner = false;

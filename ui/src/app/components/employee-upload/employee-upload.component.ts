@@ -1,19 +1,16 @@
 import { Component, OnInit } from "@angular/core";
-import { QuestionService } from "../../services/question.service";
+import { EmployeeService } from "../../services/employee.service";
 import { MatSnackBar } from "@angular/material";
-import { EmployeeUploadComponent } from "../employee-upload/employee-upload.component";
 
 @Component({
-  selector: "dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.css"]
+  selector: "employee-upload",
+  templateUrl: "./employee-upload.component.html",
+  styleUrls: ["./employee-upload.component.css"]
 })
-export class DashboardComponent implements OnInit {
-  enterpriseId;
+export class EmployeeUploadComponent implements OnInit {
   fileName;
   data;
-
-  constructor(private service: QuestionService, public snackBar: MatSnackBar) {}
+  constructor(private service: EmployeeService, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     let fileInput = document.getElementById("file-input");
@@ -32,6 +29,7 @@ export class DashboardComponent implements OnInit {
       customInput.innerText = this.fileName;
     });
   }
+
   encodeFile() {
     let doc = document.querySelector("input[type=file]") as HTMLInputElement;
     let file = doc.files[0];
@@ -54,15 +52,14 @@ export class DashboardComponent implements OnInit {
 
   onUpload() {
     let options = {
-      entId: this.enterpriseId,
       data: this.data,
       fileName: this.fileName
     };
 
-    this.service.uploadQuestions(options).subscribe(response => {
+    this.service.uploadEmployees(options).subscribe(response => {
       //console.log(response);
       if (response.status === 201) {
-        this.snackBar.open("Questions uploaded!", "OK", {
+        this.snackBar.open("Employees uploaded!", "OK", {
           duration: 2000
         });
       } else {
@@ -70,7 +67,6 @@ export class DashboardComponent implements OnInit {
           duration: 2000
         });
       }
-      this.enterpriseId = "";
       this.data = "";
       this.fileName = "";
       document.getElementById("custom-file-input").innerText = "Choose file";

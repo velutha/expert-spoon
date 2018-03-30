@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const fileController = require("./controllers/file.controller");
 const userController = require("./controllers/user.controller");
-const logger = require('./config/logger');
+const employeeController = require("./controllers/employee.controller");
+const logger = require("./config/logger");
 
 /* everything will go at /api/route */
 //health check url
@@ -9,17 +10,18 @@ router.get("/health", (req, res) => {
   res.send("OK");
 });
 
-router.post("/upload",fileController.uploadFile);
+router.post("/upload/questions", fileController.uploadFile);
 
-router.get("/question/:enterpriseId",fileController.getQuestions);
+router.post("/upload/employees", employeeController.uploadEmployees);
 
-router.post("/answer",fileController.uploadAnswer);
+router.get("/question/:enterpriseId", fileController.getQuestions);
 
-router.post("/signup",userController.signup);
+router.post("/answer", fileController.uploadAnswer);
 
-router.post("/login",userController.login);
+router.post("/signup", userController.signup);
 
-router.get("/answer/:revieweeId",fileController.getAnswers);
+router.post("/login", userController.login);
 
+router.get("/answer/:revieweeId", fileController.getAnswers);
 
 module.exports = router;

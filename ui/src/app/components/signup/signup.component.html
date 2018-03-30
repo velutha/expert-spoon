@@ -79,6 +79,13 @@
             <br/>
           </div>
 
+          <mat-form-field class="full-width">
+            <mat-select [(value)]="model.role">
+              <mat-option *ngFor="let role of roles" [value]="role" placeholder="Select your role">{{role}}</mat-option>
+            </mat-select>
+            <br/>
+          </mat-form-field>
+
           <div *ngIf="showSpinner;else signupButton">
             <mat-spinner id="spinner" [diameter]="30"></mat-spinner>
           </div>

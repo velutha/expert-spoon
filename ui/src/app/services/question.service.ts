@@ -12,6 +12,8 @@ export class QuestionService {
   }
 
   uploadQuestions(httpOptions) {
-    return this.http.post("/api/upload", httpOptions, { observe: "response" });
+    return this.http.post("/api/upload/questions", httpOptions, {
+      observe: "response"
+    });
   }
 }

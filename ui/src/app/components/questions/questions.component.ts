@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { QuestionService } from "../../services/question.service";
 import { AnswerService } from "../../services/answer.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "questions",
@@ -15,7 +16,8 @@ export class QuestionsComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
-    private answerService: AnswerService
+    private answerService: AnswerService,
+    public snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -27,17 +29,20 @@ export class QuestionsComponent implements OnInit {
           Object.keys(response.body).length !== 0
         ) {
           for (let section in response.body) {
-            this.sections.push(section);
+            this.sections.push({ section: section, show: false });
             this.questions.push(response.body[section]);
             this.answers[section] = [];
           }
-          console.log(this.questions);
+          //console.log(this.questions);
+          //console.log(this.sections);
+          //initialising the first section to show on the questions page
+          this.sections[0].show = true;
         } else {
           this.errorMessage = "Oops..Something went wrong!";
         }
       },
       error => {
-        console.log(error);
+        //console.log(error);
         switch (error.status) {
           case 404:
             this.errorMessage = "Questions not found";
@@ -92,17 +97,37 @@ export class QuestionsComponent implements OnInit {
     //console.log(this.answers);
   }
 
-  onSubmit(section) {
-    let sectionIndex = this.sections.indexOf(section);
+  onSubmit(section, sectionIndex) {
+    //let sectionIndex = this.sections.indexOf({ section: section, show: true });
+
     let questionCount = this.questions[sectionIndex].length;
     if (this.answers[section].length === questionCount) {
       this.sendAnswers(this.answers[section]);
+      this.sections.forEach(section => {
+        section.show = false;
+      });
+
+      this.sections[sectionIndex + 1].show = true;
     } else {
-      window.alert("Please answer all the questions before submitting");
+      this.snackBar.open(
+        "Please answer all the questions before submitting",
+        "Ok",
+        {
+          duration: 3000
+        }
+      );
     }
   }
 
   private sendAnswers(answers) {
     this.answerService.postAnswers(answers);
+  }
+
+  onSkip(sectionIndex) {
+    this.sections.forEach(section => {
+      section.show = false;
+    });
+
+    this.sections[sectionIndex + 1].show = true;
   }
 }

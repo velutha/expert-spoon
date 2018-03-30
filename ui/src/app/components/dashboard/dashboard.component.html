@@ -1,34 +1,26 @@
 <div class="upload-container">
+    <employee-upload></employee-upload>
     <mat-card class="file-upload">
         <mat-card-header class="file-upload-header">
             <mat-card-title>Upload questions</mat-card-title>
         </mat-card-header>
-    
-        <mat-card-content class="file-upload-content" >
+
+        <mat-card-content class="file-upload-content">
             <div class="upload-form" fxLayout="column">
                 <mat-form-field>
                     <input matInput placeholder="Enterprise Id" [(ngModel)]="enterpriseId">
-                </mat-form-field> 
-                <div >
-                    <button id="custom-file-input"mat-button class="upload-button" >
+                </mat-form-field>
+                <div>
+                    <button id="custom-file-input" mat-button class="upload-button">
                         Choose file
                     </button>
-                    <input id="file-input" name="myFile" type="file" (change)="encodeFile()" >
+                    <input id="file-input" name="myFile" type="file" (change)="encodeFile()">
                 </div>
             </div>
         </mat-card-content>
-        
+
         <mat-card-actions>
             <button class="upload-button" mat-button (click)="onUpload()">Upload</button>
         </mat-card-actions>
     </mat-card>
-
-    <!--<mat-progress-bar
-          [class.hidden] = "progressBar"
-          class="progress-bar"
-          color='primary'
-          mode="indeterminate"
-          value= 20
-          bufferValue= 75>
-      </mat-progress-bar>-->
 </div>

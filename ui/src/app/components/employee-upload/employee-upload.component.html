@@ -1,0 +1,22 @@
+<div class="upload-container">
+  <mat-card class="file-upload">
+    <mat-card-header class="file-upload-header">
+      <mat-card-title>Upload employees</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="file-upload-content">
+      <div class="upload-form" fxLayout="column">
+        <div>
+          <button id="custom-file-input" mat-button class="upload-button">
+            Choose file
+          </button>
+          <input id="file-input" name="myFile" type="file" (change)="encodeFile()">
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button class="upload-button" mat-button (click)="onUpload()">Upload</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

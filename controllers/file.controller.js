@@ -33,7 +33,7 @@ const uploadFile = (req, res) => {
         if (err) {
           reject(err);
         }
-        var fileData = xlsx.readFile(fileLocation);
+        let fileData = xlsx.readFile(fileLocation);
         resolve(fileData);
       });
     })

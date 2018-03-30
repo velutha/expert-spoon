@@ -14,6 +14,7 @@ import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./services/auth-guard.service";
 import { QuestionService } from "./services/question.service";
 import { AnswerService } from "./services/answer.service";
+import { EmployeeService } from "./services/employee.service";
 
 // angular material compnents
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -45,6 +46,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { SignupComponent } from "./components/signup/signup.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { AnswersComponent } from "./components/answers/answers.component";
+import { EmployeeUploadComponent } from "./components/employee-upload/employee-upload.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -74,7 +76,8 @@ const appRoutes: Routes = [
     HomeComponent,
     SignupComponent,
     FooterComponent,
-    AnswersComponent
+    AnswersComponent,
+    EmployeeUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,13 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatProgressBarModule
   ],
-  providers: [AuthService, AuthGuard, QuestionService, AnswerService],
+  providers: [
+    AuthService,
+    AuthGuard,
+    QuestionService,
+    AnswerService,
+    EmployeeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
