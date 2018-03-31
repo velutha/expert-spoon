@@ -3,7 +3,7 @@ const xlsx = require("xlsx");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 
-const employeeModel = require("../models/employee.model");
+const { employeeModel } = require("../models/employee.model");
 
 const uploadEmployees = (req, res) => {
   if (req.body.data) {
@@ -40,6 +40,7 @@ const uploadEmployees = (req, res) => {
           let role = sheet[`C${i}`].v;
 
           let newEmployee = {
+            enterpriseId,
             employeeName,
             email,
             role
@@ -51,7 +52,7 @@ const uploadEmployees = (req, res) => {
             sheet = "";
           }
         }
-        console.log(employees);
+        //console.log(employees);
         employeeModel.create(employees, (err, employeeArray) => {
           if (err) throw err;
           res.status(201).json({ message: "Employees created" });
@@ -63,4 +64,27 @@ const uploadEmployees = (req, res) => {
   }
 };
 
-module.exports = { uploadEmployees };
+const getEmployees = (req, res) => {
+  if (req.params.enterpriseId) {
+    const enterpriseId = req.params.enterpriseId;
+    employeeModel.find({ enterpriseId }, (err, employeeArray) => {
+      if (err) {
+        throw err;
+      } else {
+        let employeesEdited = [];
+        employeeArray.forEach(employee => {
+          employeesEdited.push({
+            employeeId: employee._id,
+            employeeName: employee.employeeName,
+            email: employee.email,
+            role: employee.role
+          });
+        });
+        //console.log(employeesEdited);
+        res.json(employeesEdited);
+      }
+    });
+  }
+};
+
+module.exports = { uploadEmployees, getEmployees };

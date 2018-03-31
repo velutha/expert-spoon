@@ -14,7 +14,9 @@ router.post("/upload/questions", fileController.uploadFile);
 
 router.post("/upload/employees", employeeController.uploadEmployees);
 
-router.get("/question/:enterpriseId", fileController.getQuestions);
+router.get("/get/employee/:enterpriseId", employeeController.getEmployees);
+
+router.get("/question/:enterpriseId/:employeeId", fileController.getQuestions);
 
 router.post("/answer", fileController.uploadAnswer);
 

@@ -10,11 +10,12 @@ import { MatSnackBar } from "@angular/material";
 export class EmployeeUploadComponent implements OnInit {
   fileName;
   data;
+  enterpriseId = "asdf";
   constructor(private service: EmployeeService, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    let fileInput = document.getElementById("file-input");
-    let customInput = document.getElementById("custom-file-input");
+    let fileInput = document.getElementById("employee-file-input");
+    let customInput = document.getElementById("employee-custom-file-input");
 
     customInput.addEventListener("click", () => {
       fileInput.click();
@@ -31,7 +32,9 @@ export class EmployeeUploadComponent implements OnInit {
   }
 
   encodeFile() {
-    let doc = document.querySelector("input[type=file]") as HTMLInputElement;
+    let doc = document.getElementById(
+      "employee-file-input"
+    ) as HTMLInputElement;
     let file = doc.files[0];
 
     let dataPromise = new Promise((resolve, reject) => {
@@ -53,7 +56,8 @@ export class EmployeeUploadComponent implements OnInit {
   onUpload() {
     let options = {
       data: this.data,
-      fileName: this.fileName
+      fileName: this.fileName,
+      enterpriseId: this.enterpriseId
     };
 
     this.service.uploadEmployees(options).subscribe(response => {
@@ -69,7 +73,8 @@ export class EmployeeUploadComponent implements OnInit {
       }
       this.data = "";
       this.fileName = "";
-      document.getElementById("custom-file-input").innerText = "Choose file";
+      document.getElementById("employee-custom-file-input").innerText =
+        "Choose file";
     });
     //console.log(this.enterpriseId,this.fileName,this.data);
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { QuestionService } from "../../services/question.service";
 import { AnswerService } from "../../services/answer.service";
 import { MatSnackBar } from "@angular/material";
+import { EmployeeService } from "../../services/employee.service";
 
 @Component({
   selector: "questions",
@@ -9,6 +10,9 @@ import { MatSnackBar } from "@angular/material";
   styleUrls: ["./questions.component.css"]
 })
 export class QuestionsComponent implements OnInit {
+  enterpriseId = "asdf";
+  employeeId;
+  employees;
   errorMessage;
   sections = [];
   questions = [];
@@ -17,41 +21,70 @@ export class QuestionsComponent implements OnInit {
   constructor(
     private questionService: QuestionService,
     private answerService: AnswerService,
+    private employeeService: EmployeeService,
     public snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
-    this.questionService.getQuestions().subscribe(
+    this.employeeService.getEmployees(this.enterpriseId).subscribe(
       response => {
-        //console.log(Object.keys(response.body).length);
-        if (
-          response.status === 200 &&
-          Object.keys(response.body).length !== 0
-        ) {
-          for (let section in response.body) {
-            this.sections.push({ section: section, show: false });
-            this.questions.push(response.body[section]);
-            this.answers[section] = [];
-          }
-          //console.log(this.questions);
-          //console.log(this.sections);
-          //initialising the first section to show on the questions page
-          this.sections[0].show = true;
+        if (response.body) {
+          this.employees = response.body;
         } else {
-          this.errorMessage = "Oops..Something went wrong!";
+          this.snackBar.open("Employees not uploaded yet", "OK", {
+            duration: 3000
+          });
         }
       },
-      error => {
-        //console.log(error);
+      (error: Response) => {
+        console.log(error);
         switch (error.status) {
           case 404:
-            this.errorMessage = "Questions not found";
-            break;
+            this.snackBar.open("Employees not found", "OK", {
+              duration: 3000
+            });
           default:
-            this.errorMessage = "Oops..Something went wrong!";
+            this.snackBar.open("Something went wrong", "OK", {
+              duration: 3000
+            });
         }
       }
     );
+  }
+
+  onSelect() {
+    this.questionService
+      .getQuestions(this.enterpriseId, this.employeeId)
+      .subscribe(
+        response => {
+          if (
+            response.status === 200 &&
+            Object.keys(response.body).length !== 0
+          ) {
+            for (let section in response.body) {
+              this.sections.push({ section: section, show: false });
+              this.questions.push(response.body[section]);
+              this.answers[section] = [];
+              this.errorMessage = "";
+            }
+
+            //initialising the first section to show on the questions page
+            this.sections[0].show = true;
+          } else {
+            this.errorMessage = "Oops..Something went wrong!";
+          }
+        },
+        error => {
+          //console.log(error);
+          switch (error.status) {
+            case 404:
+              this.errorMessage = "Questions not found";
+              break;
+            default:
+              this.errorMessage = "Oops..Something went wrong!";
+          }
+        }
+      );
   }
 
   isAnswered(questionId, section) {

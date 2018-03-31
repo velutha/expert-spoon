@@ -54,6 +54,9 @@ files
 #.env
 .env.local
 
+#files
+Employees/
+
 */.vscode/*
 .vscode/*
 dist/*

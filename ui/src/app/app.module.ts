@@ -47,6 +47,7 @@ import { SignupComponent } from "./components/signup/signup.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { AnswersComponent } from "./components/answers/answers.component";
 import { EmployeeUploadComponent } from "./components/employee-upload/employee-upload.component";
+import { QuestionUploadComponent } from "./components/question-upload/question-upload.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
     SignupComponent,
     FooterComponent,
     AnswersComponent,
-    EmployeeUploadComponent
+    EmployeeUploadComponent,
+    QuestionUploadComponent
   ],
   imports: [
     BrowserModule,

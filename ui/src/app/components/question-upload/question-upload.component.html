@@ -1,0 +1,28 @@
+<div class="upload-container">
+
+  <mat-card class="file-upload">
+    <mat-card-header class="file-upload-header">
+      <mat-card-title>Upload questions</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="file-upload-content">
+      <div class="upload-form" fxLayout="column">
+        <mat-form-field>
+          <mat-select id="select-employee" [(value)]="employeeId" placeholder="Select Employee">
+            <mat-option *ngFor="let employee of employees" [value]="employee.employeeId">{{employee.employeeName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button id="question-custom-file-input" mat-button class="upload-button">
+            Choose file
+          </button>
+          <input id="question-file-input" name="myFile" type="file" (change)="encodeFile()">
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button class="upload-button" mat-button (click)="onUpload()">Upload</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

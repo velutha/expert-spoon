@@ -15,6 +15,7 @@ const uploadFile = (req, res) => {
   if (req.body.data) {
     //const userId = req.body.userId;
     const enterpriseId = req.body.entId;
+    const employeeId = req.body.employeeId;
     const data = req.body.data;
     const fileLocation = path.join(
       __dirname,
@@ -41,85 +42,86 @@ const uploadFile = (req, res) => {
         const sheet = data.Sheets.Sheet1;
         const questions = [];
         let i = 2;
-        let type = sheet[`B2`].v;
+        if (sheet[`B2`]) {
+          let type = sheet[`B2`].v;
+          try {
+            while (type) {
+              let title = sheet[`C${i}`].v;
+              let section = sheet[`A${i}`].v;
+              let options =
+                type === choiceType
+                  ? ["D", "E", "F", "G", "H"].map(a => {
+                      return {
+                        option: sheet[`${a}${i}`].v
+                      };
+                    })
+                  : undefined;
 
-        try {
-          while (type) {
-            let title = sheet[`C${i}`].v;
-            let section = sheet[`A${i}`].v;
-            let options =
-              type === choiceType
-                ? ["D", "E", "F", "G", "H"].map(a => {
-                    return {
-                      option: sheet[`${a}${i}`].v
-                    };
-                  })
-                : undefined;
+              let ratings =
+                type === ratingType
+                  ? ["I", "J", "K", "L", "M"].map(b => {
+                      return {
+                        field: sheet[`${b}${i}`].v
+                      };
+                    })
+                  : undefined;
 
-            let ratings =
-              type === ratingType
-                ? ["I", "J", "K", "L", "M"].map(b => {
-                    return {
-                      field: sheet[`${b}${i}`].v
-                    };
-                  })
-                : undefined;
+              let newQuestion = {};
+              switch (type) {
+                case choiceType:
+                  newQuestion = {
+                    employeeId,
+                    enterpriseId,
+                    section,
+                    type,
+                    title,
+                    options
+                  };
+                  break;
 
-            let newQuestion = {};
-            switch (type) {
-              case choiceType:
-                newQuestion = {
-                  //userId,
-                  enterpriseId,
-                  section,
-                  type,
-                  title,
-                  options
-                };
-                break;
+                case ratingType:
+                  newQuestion = {
+                    employeeId,
+                    enterpriseId,
+                    section,
+                    type,
+                    title,
+                    ratings
+                  };
+                  break;
 
-              case ratingType:
-                newQuestion = {
-                  //userId,
-                  enterpriseId,
-                  section,
-                  type,
-                  title,
-                  ratings
-                };
-                break;
+                case textType:
+                  newQuestion = {
+                    employeeId,
+                    enterpriseId,
+                    section,
+                    type,
+                    title
+                  };
+              }
 
-              case textType:
-                newQuestion = {
-                  //userId,
-                  enterpriseId,
-                  section,
-                  type,
-                  title
-                };
+              questions.push(newQuestion);
+
+              i++;
+              if (sheet[`B${i}`]) {
+                type = sheet[`B${i}`].v;
+              } else {
+                type = "";
+              }
             }
-
-            questions.push(newQuestion);
-
-            i++;
-            if (sheet[`B${i}`]) {
-              type = sheet[`B${i}`].v;
-            } else {
-              type = "";
+          } catch (err) {
+            if (err) {
+              throw err;
             }
           }
-        } catch (err) {
-          if (err) {
-            throw err;
-          }
+
+          //the question being uploaded into database using the mongoose model
+          Question.create(questions, (err, questionArray) => {
+            if (err) throw err;
+            //console.log(Q);
+            res.status(201).json({ message: "Questions uploaded" });
+          });
         }
-
-        //the question being uploaded into database using the mongoose model
-        Question.create(questions, (err, questionArray) => {
-          if (err) throw err;
-          //console.log(Q);
-          res.status(201).json({ message: "Questions uploaded" });
-        });
       })
       .catch(err => {
         if (err) {
@@ -130,10 +132,10 @@ const uploadFile = (req, res) => {
 };
 
 const getQuestions = (req, res) => {
-  //const userId = req.params.userId;
+  const employeeId = req.params.employeeId;
   const enterpriseId = req.params.enterpriseId;
 
-  Question.find({ enterpriseId }, (err, questionArray) => {
+  Question.find({ enterpriseId, employeeId }, (err, questionArray) => {
     if (err) {
       throw err;
     }
@@ -152,7 +154,7 @@ const getQuestions = (req, res) => {
     questionArray.forEach(question => {
       let questionEdited = {
         questionId: question._id,
-        //userId: question.userId,
+        employeeId: question.employeeId,
         enterpriseId: question.enterpriseId,
         type: question.type,
         title: question.title
@@ -193,7 +195,6 @@ const uploadAnswer = (req, res) => {
       throw err;
     }
 
-    //let userId = q.userId;
     const enterpriseId = question.enterpriseId;
     const type = question.type;
     const section = question.section;

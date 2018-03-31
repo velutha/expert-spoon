@@ -4,15 +4,16 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class QuestionService {
   constructor(private http: HttpClient) {}
+  url = "http://localhost:3000/api";
 
-  getQuestions() {
-    return this.http.get("http://localhost:3000/api/question/asdf/", {
+  getQuestions(enterpriseId, employeeId) {
+    return this.http.get(this.url + `/question/${enterpriseId}/${employeeId}`, {
       observe: "response"
     });
   }
 
   uploadQuestions(httpOptions) {
-    return this.http.post("/api/upload/questions", httpOptions, {
+    return this.http.post(this.url + "/upload/questions", httpOptions, {
       observe: "response"
     });
   }

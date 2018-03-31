@@ -10,10 +10,6 @@ const employeeSchema = new Schema({
     type: String,
     default: uuid.v4
   },
-  employeeId: {
-    type: String,
-    default: uuid.v4
-  },
   employeeName: {
     type: String
   },
