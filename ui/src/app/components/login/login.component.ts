@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) {
     // authentication
     if (auth.isLoggedIn()) {
-      router.navigate(["/dashboard"]);
+      router.navigate(["/questions"]);
     }
   }
 
@@ -42,7 +42,11 @@ export class LoginComponent implements OnInit {
               "returnUrl"
             );
             //console.log(returnUrl);
-            this.router.navigate([returnUrl || "/"]);
+            if (this.auth.getUser().role === "Director") {
+              this.router.navigate([returnUrl || "/dashboard"]);
+            } else {
+              this.router.navigate([returnUrl || "/questions"]);
+            }
           } else this.invalidLogin = "Invalid credentials";
           this.showSpinner = false;
         },

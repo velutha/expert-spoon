@@ -122,6 +122,7 @@ export class QuestionsComponent implements OnInit {
       this.answers[section][questionIndex].choice = choice;
     } else if (questionIndex === -1) {
       this.answers[section].push({
+        revieweeId: this.employeeId,
         questionId: question.questionId,
         choice: choice
         //revieweeId and reviewerId to be attached to the answer

@@ -1,5 +1,30 @@
 <div class="container" fxLayout="column" fxLayoutAlign="center center">
 
+    <mat-form-field id="select-employee">
+        <mat-select [(value)]="revieweeId" placeholder="Select Employee" (change)="onSelect()">
+            <mat-option *ngFor="let employee of employees" [value]="employee.employeeId">{{employee.employeeName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="revieweeId" fxLayout="column" fxLayoutAlign="space-around start">
+        <h2>{{reviewee.employeeName}}</h2>
+        <h3>{{reviewee.role}}</h3>
+        <mat-card *ngFor="let section of sections;let i = index">
+            <mat-card-header>
+                <mat-card-title>
+                    <h3>{{section}}</h3>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngFor="let answer of answers[section]" fxLayout="column" fxLayoutAlign="space-around start">
+                    <p>Q: {{answer.title}}</p>
+                    <p>A: {{answer.options[choiceObject[answer.choice]].option}}</p>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
     <div *ngIf="errorMessage">
         <mat-card class="error-card">
             <mat-card-content class="section-title">
@@ -7,40 +32,4 @@
             </mat-card-content>
         </mat-card>
     </div>
-
-    <mat-card class="card" fxKat>
-        <mat-card-header class="card-header">
-            <mat-card-title>
-                <h2>Employee name</h2>
-            </mat-card-title>
-            <mat-card-subtitle>
-                Designation
-            </mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content>
-            <mat-card *ngFor="let section of sections;let i = index">
-                <mat-card-header>
-                    <mat-card-title>
-                        <h3>{{section}}</h3>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div *ngFor="let answer of answers[section]">
-                        <mat-card>
-                            <mat-card-header>
-                                <mat-card-title>
-                                    <p>{{answer.title}}</p>
-                                </mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content>
-                                <p>{{answer.options[choiceObject[answer.choice]].option}}</p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-            <h3></h3>
-        </mat-card-content>
-    </mat-card>
 </div>

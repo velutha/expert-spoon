@@ -1,4 +1,17 @@
 <div class="upload-container">
-    <employee-upload></employee-upload>
-    <question-upload></question-upload>
+    <div *ngIf="uploadEmployees; else uploadQuestions">
+        <employee-upload></employee-upload>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button class="upload-redirect" (click)="onClick()">Upload Questions</button>
+            <button mat-raised-button class="upload-redirect" routerLink="/answers">View feedback</button>
+        </div>
+
+    </div>
+    <ng-template #uploadQuestions>
+        <question-upload></question-upload>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button class="upload-redirect" (click)="onClick()">Upload Employees</button>
+            <button mat-raised-button class="upload-redirect" routerLink="/answers">View feedback</button>
+        </div>
+    </ng-template>
 </div>

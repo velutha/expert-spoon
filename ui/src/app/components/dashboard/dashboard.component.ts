@@ -8,7 +8,12 @@ import { EmployeeUploadComponent } from "../employee-upload/employee-upload.comp
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
+  uploadEmployees = true;
   constructor() {}
 
   ngOnInit() {}
+
+  onClick() {
+    this.uploadEmployees = !this.uploadEmployees;
+  }
 }

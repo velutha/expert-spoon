@@ -14,6 +14,7 @@ export class QuestionUploadComponent implements OnInit {
   fileName;
   data;
   employees;
+  showSpinner;
   constructor(
     private service: QuestionService,
     private employeeService: EmployeeService,
@@ -86,6 +87,7 @@ export class QuestionUploadComponent implements OnInit {
   }
 
   onUpload() {
+    this.showSpinner = true;
     let options = {
       entId: this.enterpriseId,
       employeeId: this.employeeId,
@@ -98,13 +100,14 @@ export class QuestionUploadComponent implements OnInit {
         //console.log(response);
         if (response.status === 201) {
           this.snackBar.open("Questions uploaded!", "OK", {
-            duration: 2000
+            duration: 3000
           });
         }
 
         this.data = "";
         this.fileName = "";
         this.employeeId = "";
+        this.showSpinner = false;
         document.getElementById("question-custom-file-input").innerText =
           "Choose file";
       },
@@ -113,18 +116,15 @@ export class QuestionUploadComponent implements OnInit {
         switch (error.status) {
           case 404:
             this.snackBar.open("Requested resource not found", "OK", {
-              duration: 2000
+              duration: 3000
             });
           default:
             this.snackBar.open("Something went wrong", "OK", {
-              duration: 2000
+              duration: 3000
             });
         }
-        this.data = "";
-        this.fileName = "";
-        this.employeeId = "";
-        document.getElementById("question-custom-file-input").innerText =
-          "Choose file";
+
+        this.showSpinner = false;
       }
     );
   }

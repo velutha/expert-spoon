@@ -19,9 +19,6 @@ input[type="file"] {
   cursor: pointer;
 }
 
-.progress-bar {
-  max-width: 50%;
-  margin: 30px;
-  margin-left: 20%;
-  margin-top: 0%;
+#spinner {
+  margin-left: 45%;
 }

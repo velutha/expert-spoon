@@ -60,7 +60,7 @@
             </button> -->
       </div>
 
-      <div *ngIf="auth.getUser().role === 'admin'">
+      <div *ngIf="auth.getUser().role === 'Director'">
         <a mat-list-item routerLink="/dashboard" routerLinkActive="active" class="navLinks" (click)="menu.close()"> Dashboard </a>
       </div>
 

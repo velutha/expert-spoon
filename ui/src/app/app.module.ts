@@ -12,6 +12,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 // services
 import { AuthService } from "./services/auth.service";
 import { AuthGuard } from "./services/auth-guard.service";
+import { AdminGuard } from "./services/admin-guard.service";
+
 import { QuestionService } from "./services/question.service";
 import { AnswerService } from "./services/answer.service";
 import { EmployeeService } from "./services/employee.service";
@@ -57,14 +59,18 @@ const appRoutes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: "questions",
     component: QuestionsComponent,
     canActivate: [AuthGuard]
   },
-  { path: "answers", component: AnswersComponent, canActivate: [AuthGuard] }
+  {
+    path: "answers",
+    component: AnswersComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  }
 ];
 
 @NgModule({
@@ -110,6 +116,7 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     AuthGuard,
+    AdminGuard,
     QuestionService,
     AnswerService,
     EmployeeService

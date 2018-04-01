@@ -11,6 +11,7 @@ export class EmployeeUploadComponent implements OnInit {
   fileName;
   data;
   enterpriseId = "asdf";
+  showSpinner;
   constructor(private service: EmployeeService, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
@@ -54,28 +55,46 @@ export class EmployeeUploadComponent implements OnInit {
   }
 
   onUpload() {
+    this.showSpinner = true;
     let options = {
       data: this.data,
       fileName: this.fileName,
       enterpriseId: this.enterpriseId
     };
 
-    this.service.uploadEmployees(options).subscribe(response => {
-      //console.log(response);
-      if (response.status === 201) {
-        this.snackBar.open("Employees uploaded!", "OK", {
-          duration: 2000
-        });
-      } else {
-        this.snackBar.open("Something went wrong", "OK", {
-          duration: 2000
-        });
+    this.service.uploadEmployees(options).subscribe(
+      response => {
+        //console.log(response);
+        if (response.status === 201) {
+          this.snackBar.open("Employees uploaded!", "OK", {
+            duration: 2000
+          });
+        } else {
+          this.snackBar.open("Something went wrong", "OK", {
+            duration: 2000
+          });
+        }
+        this.data = "";
+        this.fileName = "";
+        this.showSpinner = false;
+        document.getElementById("employee-custom-file-input").innerText =
+          "Choose file";
+      },
+      (error: Response) => {
+        console.log(error);
+        switch (error.status) {
+          case 404:
+            this.snackBar.open("Something went wrong", "OK", {
+              duration: 2000
+            });
+          default:
+            this.snackBar.open("Something went wrong", "OK", {
+              duration: 2000
+            });
+        }
+        this.showSpinner = false;
       }
-      this.data = "";
-      this.fileName = "";
-      document.getElementById("employee-custom-file-input").innerText =
-        "Choose file";
-    });
+    );
     //console.log(this.enterpriseId,this.fileName,this.data);
   }
 }

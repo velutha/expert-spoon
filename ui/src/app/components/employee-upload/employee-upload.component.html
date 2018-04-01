@@ -14,9 +14,14 @@
         </div>
       </div>
     </mat-card-content>
+    <div *ngIf="showSpinner;else uploadButton">
+      <mat-spinner id="spinner" [diameter]="30"></mat-spinner>
+    </div>
+    <ng-template #uploadButton>
+      <mat-card-actions>
+        <button class="upload-button" mat-button (click)="onUpload()">Upload</button>
+      </mat-card-actions>
+    </ng-template>
 
-    <mat-card-actions>
-      <button class="upload-button" mat-button (click)="onUpload()">Upload</button>
-    </mat-card-actions>
   </mat-card>
 </div>
